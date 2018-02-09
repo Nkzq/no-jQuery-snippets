@@ -37,7 +37,7 @@
             "}",
             "fadeIn(${el})"
         ],
-        "description": "Display the matched elements by fading them using opacity"
+        "description": "Display the matched elements by fading them using opacity."
     },
 
     "Hide": {
@@ -45,7 +45,7 @@
         "body": [
             "${el}.style.display = 'none'"
         ],
-        "description": "Hide the matched elements"
+        "description": "Hide the matched elements."
     },
 
     "Show": {
@@ -53,7 +53,7 @@
         "body": [
             "${el}.style.display = ''"
         ],
-        "description": "Show the matched elements"
+        "description": "Show the matched elements."
     },
 
     /*
@@ -67,7 +67,7 @@
             "   ${el}.classList.add(${className})",
             "}"
         ],
-        "description": "Adds the specified class(es) to each of the set of matched elements"
+        "description": "Adds the specified class(es) to each of the set of matched elements."
     },
 
     "After": {
@@ -158,7 +158,7 @@
     },
 
     "Find Children": {
-        "prefix": "vfilter",
+        "prefix": "vfindChild",
         "body": [
             "${el}.querySelectorAll(${selector})"
         ],
@@ -166,7 +166,7 @@
     },
 
     "Find Elements": {
-        "prefix": "vfilter",
+        "prefix": "vfind",
         "body": [
             "document.querySelectorAll(${selector})"
         ],
@@ -198,7 +198,7 @@
     },
 
     "Css": {
-        "prefix": "vouterHtml",
+        "prefix": "vcss",
         "body": [
             "getComputedStyle(${el})[${ruleName}]"
         ],
@@ -206,7 +206,7 @@
     },
 
     "Text": {
-        "prefix": "vouterHtml",
+        "prefix": "vtext",
         "body": [
             "${el}.textContent"
         ],
@@ -224,20 +224,7 @@
     "Is": {
         "prefix": "vis",
         "body": [
-            "if (el === otherEl) {",
-            "   $0",
-            "}"
-        ],
-        "description": "Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments."
-    },
-
-    "Is Selector": {
-        "prefix": "visSelector",
-        "body": [
-            "const matches = (el, selector) {",
-            "   return (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector).call(el, selector)",
-            "}",
-            "if (matches(${el}, ${selector})) {",
+            "if (${el} === ${otherEl}) {",
             "   $0",
             "}"
         ],
@@ -253,7 +240,7 @@
     },
 
     "Offset": {
-        "prefix": "vnext",
+        "prefix": "voffset",
         "body": [
             "const rect = ${el}.getBoundingClientRect()",
             "const offset = {",
@@ -339,7 +326,7 @@
         "body": [
             "const position = ${el}.getBoundingClientRect()"
         ],
-        "description": "Get the current coordinates of the first element in the set of matched elements, relative to the offset parent."
+        "description": "Get the current coordinates of the first element in the set of matched elements, relative to viewport."
     },
 
     "Prepend": {
@@ -520,7 +507,7 @@
               "}",
               "parseHTML(${htmlString})"
         ],
-        "description": "Vanilla JS parseHTML equivalent"
+        "description": "Parses a string into an array of DOM nodes."
     },
 
     "Parse Json": {
@@ -528,7 +515,7 @@
         "body": [
             "JSON.parse(${string})"
         ],
-        "description": "Parses a string into an array of DOM nodes."
+        "description": "Takes a well-formed JSON string and returns the resulting JavaScript value."
     },
 
     "Trim": {
