@@ -4,7 +4,7 @@ A bunch of snippets to easily migrate to ES6 Vanilla Js from jQuery.
 
 The snippets are accessible by typing "v" followed up by the jQuery function you need.
 
-![Image of Snippets](https://raw.githubusercontent.com/Nkzq/no-jQuery-snippets/images/snippets.png)
+![Image of Snippets](https://github.com/Nkzq/no-jQuery-snippets/blob/master/images/snippets.png)
 
 ## Snippets
 
@@ -90,4 +90,4 @@ vparseJson | Takes a well-formed JSON string and returns the resulting JavaScrip
 vtrim | Remove the whitespace from the beginning and end of a string.
 vtype | Determine the internal JavaScript [[Class]] of an object.
 
-Thanks to [Source](http://youmightnotneedjquery.com/)
+Thanks to [You Might Not Need jQuery](http://youmightnotneedjquery.com/)
