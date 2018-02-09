@@ -41,16 +41,15 @@ vfilter | Reduce the set of matched elements to those that match the selector or
 vfind | Returns a list of the elements within the document (using depth-first pre-order traversal of the document's nodes) that match the specified group of selectors.
 vfindChild | Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
 vgetAttr | Get the value of an attribute for the first element in the set of matched elements.
-vhtml | Get the HTML contents of the first element in the set of matched elements.
-vouterHtml | Get the outer HTML contents of the first element in the set of matched elements.
-vtext | Get the combined text contents of each element in the set of matched elements, including their descendants.
 vhasClass | Determine whether any of the matched elements are assigned the given class.
+vhtml | Get the HTML contents of the first element in the set of matched elements.
 vis | Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
 vnext | Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector.
 voffset | Get the current coordinates of the first element in the set of matched elements, relative to the document.
 voffsetParent | Get the closest ancestor element that is positioned.
 vouterHeight | Get the current computed outer height (including padding, border, and optionally margin) for the first element in the set of matched elements.
 vouterHeightMargin | Get the current computed outer height (including padding, border, and optionally margin) for the first element in the set of matched elements.
+vouterHtml | Get the outer HTML contents of the first element in the set of matched elements.
 vouterWidth | Get the current computed outer width (including padding, border, and optionally margin) for the first element in the set of matched elements.
 vouterWidthMargin | Get the current computed outer width (including padding, border, and optionally margin) for the first element in the set of matched elements.
 vparent | Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
@@ -65,6 +64,7 @@ vsetAttr | Set one or more attributes for the set of matched elements.
 vsetHtml | Set the HTML contents of each element in the set of matched elements.
 vsetStyle | Set one or more CSS properties for the set of matched elements.
 vsiblings | Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
+vtext | Get the combined text contents of each element in the set of matched elements, including their descendants.
 vtoggleClass | Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the state argument.
 
 ### Events
