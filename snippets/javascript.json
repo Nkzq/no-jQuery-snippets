@@ -1,5 +1,22 @@
 {
     /*
+        AJAX
+    */
+
+    "Ajax": {
+        "prefix": "vajax",
+        "body": [
+            "// Must be scoped in an async function",
+            "try {",
+            "   const data = await api.fetch(${reqUrl})",
+            "} catch {",
+            "   console.log('error', error)",
+            "}"
+        ],
+        "description": "Provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline, such as requests and responses."
+    },
+
+    /*
         EFFECTS
     */
 
@@ -20,7 +37,7 @@
             "}",
             "fadeIn(${el})"
         ],
-        "description": "Vanilla JS fadeIn equivalent"
+        "description": "Display the matched elements by fading them using opacity."
     },
 
     "Hide": {
@@ -28,7 +45,7 @@
         "body": [
             "${el}.style.display = 'none'"
         ],
-        "description": "Vanilla JS hide equivalent"
+        "description": "Hide the matched elements."
     },
 
     "Show": {
@@ -36,20 +53,21 @@
         "body": [
             "${el}.style.display = ''"
         ],
-        "description": "Vanilla JS show equivalent"
+        "description": "Show the matched elements."
     },
 
     /*
         ELEMENTS
     */
+
     "AddClass": {
         "prefix": "vaddClass",
         "body": [
             "if (${el}.classList) {",
-            "   ${el}.classList.add(className)",
+            "   ${el}.classList.add(${className})",
             "}"
         ],
-        "description": "Vanilla JS addClass equivalent"
+        "description": "Adds the specified class(es) to each of the set of matched elements"
     },
 
     "After": {
@@ -57,7 +75,7 @@
         "body": [
             "${el}.insertAdjacentHTML('afterend', ${htmlString})"
         ],
-        "description": "Vanilla JS after equivalent"
+        "description": "Insert content, specified by the parameter, after each element in the set of matched elements."
     },
 
     "Append": {
@@ -65,7 +83,7 @@
         "body": [
             "${parent}.appendChild(${el})"
         ],
-        "description": "Vanilla JS append equivalent"
+        "description": "Insert content, specified by the parameter, to the end of each element in the set of matched elements."
     },
 
     "Before": {
@@ -73,7 +91,7 @@
         "body": [
             "${el}.insertAdjacentHTML('beforebegin', ${htmlString})"
         ],
-        "description": "Vanilla JS before equivalent"
+        "description": "Insert content, specified by the parameter, before each element in the set of matched elements."
     },
 
     "Children": {
@@ -81,7 +99,7 @@
         "body": [
             "${el}.children"
         ],
-        "description": "Vanilla JS children equivalent"
+        "description": "Get the children of each element in the set of matched elements, optionally filtered by a selector."
     },
 
     "Clone": {
@@ -89,7 +107,7 @@
         "body": [
             "${el}.cloneNode(true)"
         ],
-        "description": "Vanilla JS clone equivalent"
+        "description": "Create a deep copy of the set of matched elements."
     },
 
     "Contains": {
@@ -99,7 +117,7 @@
             "   $0",
             "}"
         ],
-        "description": "Vanilla JS contains equivalent"
+        "description": "Check to see if a DOM element is a descendant of another DOM element."
     },
 
     "ContainsSelector": {
@@ -109,7 +127,7 @@
             "   $0",
             "}"
         ],
-        "description": "Vanilla JS $(el).find(selector).length equivalent"
+        "description": "Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element."
     },
 
     "Each": {
@@ -120,7 +138,7 @@
             "   $0",
             "}"
         ],
-        "description": "Vanilla JS each equivalent"
+        "description": "Iterate over a jQuery object, executing a function for each matched element."
     },
 
     "Empty": {
@@ -128,7 +146,7 @@
         "body": [
             "${el}.innerHTML = ''"
         ],
-        "description": "Vanilla JS empty equivalent"
+        "description": "Remove all child nodes of the set of matched elements from the DOM."
     },
 
     "Filter": {
@@ -136,7 +154,7 @@
         "body": [
             "Array.prototype.filter.call(document.querySelectorAll(${selector}), ${filterFn})"
         ],
-        "description": "Vanilla JS filter equivalent"
+        "description": "Reduce the set of matched elements to those that match the selector or pass the function's test."
     },
 
     "Find Children": {
@@ -144,7 +162,7 @@
         "body": [
             "${el}.querySelectorAll(${selector})"
         ],
-        "description": "Vanilla JS find children equivalent"
+        "description": "Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element."
     },
 
     "Find Elements": {
@@ -152,7 +170,7 @@
         "body": [
             "document.querySelectorAll(${selector})"
         ],
-        "description": "Vanilla JS find elements equivalent"
+        "description": "Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element."
     },
 
     "GetAttributes": {
@@ -160,7 +178,7 @@
         "body": [
             "${el}.getAttribute(${attribute})"
         ],
-        "description": "Vanilla JS attr equivalent"
+        "description": "Get the value of an attribute for the first element in the set of matched elements."
     },
 
     "Html": {
@@ -168,7 +186,7 @@
         "body": [
             "${el}.innerHTML"
         ],
-        "description": "Vanilla JS html equivalent"
+        "description": "Get the HTML contents of the first element in the set of matched elements."
     },
 
     "Outer Html": {
@@ -176,7 +194,7 @@
         "body": [
             "${el}.outerHTML"
         ],
-        "description": "Vanilla JS outer html equivalent"
+        "description": "Get the outer HTML contents of the first element in the set of matched elements."
     },
 
     "Css": {
@@ -184,7 +202,7 @@
         "body": [
             "getComputedStyle(${el})[${ruleName}]"
         ],
-        "description": "Vanilla JS css equivalent"
+        "description": "Get the computed style properties for the first element in the set of matched elements."
     },
 
     "Text": {
@@ -192,7 +210,7 @@
         "body": [
             "${el}.textContent"
         ],
-        "description": "Vanilla JS text equivalent"
+        "description": "Get the combined text contents of each element in the set of matched elements, including their descendants."
     },
 
     "HasClass": {
@@ -200,7 +218,7 @@
         "body": [
             "${el}.classList.contains(${class})"
         ],
-        "description": "Vanilla JS hasClass equivalent"
+        "description": "Determine whether any of the matched elements are assigned the given class."
     },
 
     "Is": {
@@ -210,7 +228,7 @@
             "   $0",
             "}"
         ],
-        "description": "Vanilla JS is equivalent"
+        "description": "Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments."
     },
 
     "Is Selector": {
@@ -223,7 +241,7 @@
             "   $0",
             "}"
         ],
-        "description": "Vanilla JS is equivalent"
+        "description": "Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments."
     },
 
     "Next": {
@@ -231,7 +249,7 @@
         "body": [
             "${el}.nextElementSibling"
         ],
-        "description": "Vanilla JS next equivalent"
+        "description": "Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector."
     },
 
     "Offset": {
@@ -243,7 +261,7 @@
             "   left: rect.left + document.body.scrollLeft",
             "}"
         ],
-        "description": "Vanilla JS offset equivalent"
+        "description": "Get the current coordinates of the first element in the set of matched elements, relative to the document."
     },
 
     "Offset Parent": {
@@ -253,7 +271,7 @@
             "   $0",
             "}"
         ],
-        "description": "Vanilla JS offsetParent equivalent"
+        "description": "Get the closest ancestor element that is positioned."
     },
 
     "OuterHeight": {
@@ -261,7 +279,7 @@
         "body": [
             "${el}.offsetHeight"
         ],
-        "description": "Vanilla JS outerHeight equivalent"
+        "description": "Get the current computed outer height (including padding, border, and optionally margin) for the first element in the set of matched elements."
     },
 
     "OuterHeight With Margin": {
@@ -275,7 +293,7 @@
             "}",
             "outerHeight(${el})"
         ],
-        "description": "Vanilla JS outerHeight(true) equivalent"
+        "description": "Get the current computed outer height (including padding, border, and optionally margin) for the first element in the set of matched elements."
     },
 
     "OuterWidth": {
@@ -283,7 +301,7 @@
         "body": [
             "${el}.offsetWidth"
         ],
-        "description": "Vanilla JS outerWidth equivalent"
+        "description": "Get the current computed outer width (including padding, border, and optionally margin) for the first element in the set of matched elements."
     },
 
     "OuterWidth With Margin": {
@@ -297,7 +315,7 @@
             "}",
             "outerWidth(${el})"
         ],
-        "description": "Vanilla JS outerWidth(true) equivalent"
+        "description": "Get the current computed outer width (including padding, border, and optionally margin) for the first element in the set of matched elements."
     },
 
     "Parent": {
@@ -305,7 +323,7 @@
         "body": [
             "${el}.parentNode"
         ],
-        "description": "Vanilla JS parent equivalent"
+        "description": "Get the parent of each element in the current set of matched elements, optionally filtered by a selector."
     },
 
     "Position": {
@@ -313,7 +331,7 @@
         "body": [
             "const position = { left: ${el}.offsetLeft, top: ${el}.offsetTop }"
         ],
-        "description": "Vanilla JS position equivalent"
+        "description": "Get the current coordinates of the first element in the set of matched elements, relative to the offset parent."
     },
 
     "Position relative to viewport": {
@@ -321,7 +339,7 @@
         "body": [
             "const position = ${el}.getBoundingClientRect()"
         ],
-        "description": "Vanilla JS position equivalent"
+        "description": "Get the current coordinates of the first element in the set of matched elements, relative to the offset parent."
     },
 
     "Prepend": {
@@ -329,7 +347,7 @@
         "body": [
             "${parent}.insertBefore(${el}, ${parent}.firstChild)"
         ],
-        "description": "Vanilla JS prepend equivalent"
+        "description": "Insert content, specified by the parameter, to the beginning of each element in the set of matched elements."
     },
 
     "Prev": {
@@ -337,7 +355,7 @@
         "body": [
             "${el}.previousElementSibling"
         ],
-        "description": "Vanilla JS prev equivalent"
+        "description": "Get the immediately preceding sibling of each element in the set of matched elements. If a selector is provided, it retrieves the previous sibling only if it matches that selector."
     },
 
     "Remove": {
@@ -345,7 +363,7 @@
         "body": [
             "${el}.parentNode.removeChild(${el})"
         ],
-        "description": "Vanilla JS remove equivalent"
+        "description": "Remove the set of matched elements from the DOM."
     },
 
     "RemoveClass": {
@@ -355,7 +373,7 @@
             "   ${el}.classList.remove(className)",
             "}"
         ],
-        "description": "Vanilla JS removeClass equivalent"
+        "description": "Remove a single class, multiple classes, or all classes from each element in the set of matched elements."
     },
 
     "Replace": {
@@ -363,7 +381,7 @@
         "body": [
             "${el}.outerHTML = ${string}"
         ],
-        "description": "Vanilla JS replaceWith equivalent"
+        "description": "Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed."
     },
 
     "Set Attributes": {
@@ -371,7 +389,7 @@
         "body": [
             "${el}.setAttribute(${attribute}, ${val})"
         ],
-        "description": "Vanilla JS attr equivalent"
+        "description": "Set one or more attributes for the set of matched elements."
     },
 
     "Set Html": {
@@ -379,7 +397,7 @@
         "body": [
             "${el}.innerHTML = ${string}"
         ],
-        "description": "Vanilla JS html equivalent"
+        "description": "Set the HTML contents of each element in the set of matched elements."
     },
 
     "Set Style": {
@@ -387,7 +405,7 @@
         "body": [
             "${el}.style.${rulename} = ${val}"
         ],
-        "description": "Vanilla JS css equivalent"
+        "description": "Set one or more CSS properties for the set of matched elements."
     },
 
     "Siblings": {
@@ -395,7 +413,7 @@
         "body": [
             "Array.prototype.filter.call(${el}.parentNode.children, child => child !== ${el})"
         ],
-        "description": "Vanilla JS css equivalent"
+        "description": "Get the siblings of each element in the set of matched elements, optionally filtered by a selector."
     },
 
     "Toggle Class": {
@@ -405,7 +423,7 @@
             "   ${el}.classList.toggle(${className})",
             "}"
         ],
-        "description": "Vanilla JS toggleClass equivalent"
+        "description": "Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the state argument."
     },
 
     /*
@@ -417,7 +435,7 @@
         "body": [
             "${el}.removeEventListener(${eventName}, ${eventHandler})"
         ],
-        "description": "Vanilla JS off equivalent"
+        "description": "Remove an event handler."
     },
 
     "On": {
@@ -425,7 +443,7 @@
         "body": [
             "${el}.addEventListener(${eventName}, ${eventHandler})"
         ],
-        "description": "Vanilla JS on equivalent"
+        "description": "Bind an event handler."
     },
 
     "Ready": {
@@ -433,7 +451,7 @@
         "body": [
             "document.addEventListener('DOMContentLoaded', ${fn})"
         ],
-        "description": "Vanilla JS ready equivalent"
+        "description": "Specify a function to execute when the DOM is fully loaded."
     },
 
     "Trigger": {
@@ -443,18 +461,19 @@
             "event.initEvent(${eventType}, true, false)",
             "${el}.dispatchEvent(event)"
         ],
-        "description": "Vanilla JS trigger equivalent"
+        "description": "Execute all handlers and behaviors attached to the matched elements for the given event type."
     },
 
     /*
         UTILS
     */
+
     "Bind": {
         "prefix": "vbind",
         "body": [
             "${fn}.bind(${context})"
         ],
-        "description": "Vanilla JS proxy equivalent"
+        "description": "Takes a function and returns a new one that will always have a particular context."
     },
 
     "In Array": {
@@ -464,7 +483,7 @@
             "   $0",
             "}"
         ],
-        "description": "Vanilla JS inArray equivalent"
+        "description": "Search for a specified value within an array and return its index (or -1 if not found)."
     },
 
     "Is Array": {
@@ -472,7 +491,7 @@
         "body": [
             "Array.isArray(${arr})"
         ],
-        "description": "Vanilla JS isArray equivalent"
+        "description": "Determine whether the argument is an array."
     },
 
     "Map": {
@@ -480,7 +499,7 @@
         "body": [
             "${array}.map(${val} => $0}"
         ],
-        "description": "Vanilla JS map equivalent"
+        "description": "Translate all items in an array or object to new array of items."
     },
 
     "Now": {
@@ -488,7 +507,7 @@
         "body": [
             "Date.now()"
         ],
-        "description": "Vanilla JS now equivalent"
+        "description": "Return a number representing the current time."
     },
 
     "Parse Html": {
@@ -509,7 +528,7 @@
         "body": [
             "JSON.parse(${string})"
         ],
-        "description": "Vanilla JS parseJSON equivalent"
+        "description": "Parses a string into an array of DOM nodes."
     },
 
     "Trim": {
@@ -517,7 +536,7 @@
         "body": [
             "${string}.trim()"
         ],
-        "description": "Vanilla JS trim equivalent"
+        "description": "Remove the whitespace from the beginning and end of a string."
     },
 
     "Type": {
@@ -525,7 +544,7 @@
         "body": [
             "Object.prototype.toString.call(${obj}).replace(/^\\[object (.+)\\]$/, '$1').toLowerCase()"
         ],
-        "description": "Vanilla JS type equivalent"
+        "description": "Determine the internal JavaScript [[Class]] of an object."
     }
 
 }

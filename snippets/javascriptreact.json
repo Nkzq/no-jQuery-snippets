@@ -1,531 +1,550 @@
 {
-  /*
-      EFFECTS
-  */
+    /*
+        AJAX
+    */
 
-  "FadeIn": {
-      "prefix": "vfadeIn",
-      "body": [
-          "const fadeIn = el = {",
-          "   el.style.opacity = 0",
-          "   let last = +new Date()",
-          "   const tick = () => {",
-          "       el.style.opacity = +el.style.opacity + (new Date() - last) / 400",
-          "       last = +new Date()",
-          "       if (+el.style.opacity < 1) {",
-          "           (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16)",
-          "       }",
-          "   }",
-          "   tick()",
-          "}",
-          "fadeIn(${el})"
-      ],
-      "description": "Vanilla JS fadeIn equivalent"
-  },
+    "Ajax": {
+        "prefix": "vajax",
+        "body": [
+            "// Must be scoped in an async function",
+            "try {",
+            "   const data = await api.fetch(${reqUrl})",
+            "} catch {",
+            "   console.log('error', error)",
+            "}"
+        ],
+        "description": "Provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline, such as requests and responses."
+    },
 
-  "Hide": {
-      "prefix": "vhide",
-      "body": [
-          "${el}.style.display = 'none'"
-      ],
-      "description": "Vanilla JS hide equivalent"
-  },
+    /*
+        EFFECTS
+    */
 
-  "Show": {
-      "prefix": "vshow",
-      "body": [
-          "${el}.style.display = ''"
-      ],
-      "description": "Vanilla JS show equivalent"
-  },
-
-  /*
-      ELEMENTS
-  */
-  "AddClass": {
-      "prefix": "vaddClass",
-      "body": [
-          "if (${el}.classList) {",
-          "   ${el}.classList.add(className)",
-          "}"
-      ],
-      "description": "Vanilla JS addClass equivalent"
-  },
-
-  "After": {
-      "prefix": "vafter",
-      "body": [
-          "${el}.insertAdjacentHTML('afterend', ${htmlString})"
-      ],
-      "description": "Vanilla JS after equivalent"
-  },
-
-  "Append": {
-      "prefix": "vappend",
-      "body": [
-          "${parent}.appendChild(${el})"
-      ],
-      "description": "Vanilla JS append equivalent"
-  },
-
-  "Before": {
-      "prefix": "vbefore",
-      "body": [
-          "${el}.insertAdjacentHTML('beforebegin', ${htmlString})"
-      ],
-      "description": "Vanilla JS before equivalent"
-  },
-
-  "Children": {
-      "prefix": "vchildren",
-      "body": [
-          "${el}.children"
-      ],
-      "description": "Vanilla JS children equivalent"
-  },
-
-  "Clone": {
-      "prefix": "vclone",
-      "body": [
-          "${el}.cloneNode(true)"
-      ],
-      "description": "Vanilla JS clone equivalent"
-  },
-
-  "Contains": {
-      "prefix": "vcontains",
-      "body": [
-          "if (${el} !== ${child} && ${el}.contains(${child})) {",
-          "   $0",
-          "}"
-      ],
-      "description": "Vanilla JS contains equivalent"
-  },
-
-  "ContainsSelector": {
-      "prefix": "vcontainsSelector",
-      "body": [
-          "if (${el}.querySelector(${selector}) !== null) {",
-          "   $0",
-          "}"
-      ],
-      "description": "Vanilla JS $(el).find(selector).length equivalent"
-  },
-
-  "Each": {
-      "prefix": "veach",
-      "body": [
-          "const ${elements} = document.querySelectorAll(${selector})",
-          "${elements}.forEach(${element} => {",
-          "   $0",
-          "}"
-      ],
-      "description": "Vanilla JS each equivalent"
-  },
-
-  "Empty": {
-      "prefix": "vempty",
-      "body": [
-          "${el}.innerHTML = ''"
-      ],
-      "description": "Vanilla JS empty equivalent"
-  },
-
-  "Filter": {
-      "prefix": "vfilter",
-      "body": [
-          "Array.prototype.filter.call(document.querySelectorAll(${selector}), ${filterFn})"
-      ],
-      "description": "Vanilla JS filter equivalent"
-  },
-
-  "Find Children": {
-      "prefix": "vfilter",
-      "body": [
-          "${el}.querySelectorAll(${selector})"
-      ],
-      "description": "Vanilla JS find children equivalent"
-  },
-
-  "Find Elements": {
-      "prefix": "vfilter",
-      "body": [
-          "document.querySelectorAll(${selector})"
-      ],
-      "description": "Vanilla JS find elements equivalent"
-  },
-
-  "GetAttributes": {
-      "prefix": "vgetAttr",
-      "body": [
-          "${el}.getAttribute(${attribute})"
-      ],
-      "description": "Vanilla JS attr equivalent"
-  },
-
-  "Html": {
-      "prefix": "vgetHtml",
-      "body": [
-          "${el}.innerHTML"
-      ],
-      "description": "Vanilla JS html equivalent"
-  },
-
-  "Outer Html": {
-      "prefix": "vouterHtml",
-      "body": [
-          "${el}.outerHTML"
-      ],
-      "description": "Vanilla JS outer html equivalent"
-  },
-
-  "Css": {
-      "prefix": "vouterHtml",
-      "body": [
-          "getComputedStyle(${el})[${ruleName}]"
-      ],
-      "description": "Vanilla JS css equivalent"
-  },
-
-  "Text": {
-      "prefix": "vouterHtml",
-      "body": [
-          "${el}.textContent"
-      ],
-      "description": "Vanilla JS text equivalent"
-  },
-
-  "HasClass": {
-      "prefix": "vhasClass",
-      "body": [
-          "${el}.classList.contains(${class})"
-      ],
-      "description": "Vanilla JS hasClass equivalent"
-  },
-
-  "Is": {
-      "prefix": "vis",
-      "body": [
-          "if (el === otherEl) {",
-          "   $0",
-          "}"
-      ],
-      "description": "Vanilla JS is equivalent"
-  },
-
-  "Is Selector": {
-      "prefix": "visSelector",
-      "body": [
-          "const matches = (el, selector) {",
-          "   return (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector).call(el, selector)",
-          "}",
-          "if (matches(${el}, ${selector})) {",
-          "   $0",
-          "}"
-      ],
-      "description": "Vanilla JS is equivalent"
-  },
-
-  "Next": {
-      "prefix": "vnext",
-      "body": [
-          "${el}.nextElementSibling"
-      ],
-      "description": "Vanilla JS next equivalent"
-  },
-
-  "Offset": {
-      "prefix": "vnext",
-      "body": [
-          "const rect = ${el}.getBoundingClientRect()",
-          "const offset = {",
-          "   top: rect.top + document.body.scrollTop,",
-          "   left: rect.left + document.body.scrollLeft",
-          "}"
-      ],
-      "description": "Vanilla JS offset equivalent"
-  },
-
-  "Offset Parent": {
-      "prefix": "voffsetParent",
-      "body": [
-          "if (${el}.offsetParent || ${el}) {",
-          "   $0",
-          "}"
-      ],
-      "description": "Vanilla JS offsetParent equivalent"
-  },
-
-  "OuterHeight": {
-      "prefix": "vouterHeight",
-      "body": [
-          "${el}.offsetHeight"
-      ],
-      "description": "Vanilla JS outerHeight equivalent"
-  },
-
-  "OuterHeight With Margin": {
-      "prefix": "vouterHeightMargin",
-      "body": [
-          "const outerHeight = el => {",
-          "   let height = el.offsetHeight",
-          "   const style = getComputedStyle(el)",
-          "   height += parseInt(style.marginTop) + parseInt(style.marginBottom)",
-          "   return height",
-          "}",
-          "outerHeight(${el})"
-      ],
-      "description": "Vanilla JS outerHeight(true) equivalent"
-  },
-
-  "OuterWidth": {
-      "prefix": "vouterWidth",
-      "body": [
-          "${el}.offsetWidth"
-      ],
-      "description": "Vanilla JS outerWidth equivalent"
-  },
-
-  "OuterWidth With Margin": {
-      "prefix": "vouterWidthMargin",
-      "body": [
-          "const outerWidth = el => {",
-          "   let width = el.offsetWidth",
-          "   const style = getComputedStyle(el)",
-          "   width += parseInt(style.marginLeft) + parseInt(style.marginRight)",
-          "   return width",
-          "}",
-          "outerWidth(${el})"
-      ],
-      "description": "Vanilla JS outerWidth(true) equivalent"
-  },
-
-  "Parent": {
-      "prefix": "vparent",
-      "body": [
-          "${el}.parentNode"
-      ],
-      "description": "Vanilla JS parent equivalent"
-  },
-
-  "Position": {
-      "prefix": "vposition",
-      "body": [
-          "const position = { left: ${el}.offsetLeft, top: ${el}.offsetTop }"
-      ],
-      "description": "Vanilla JS position equivalent"
-  },
-
-  "Position relative to viewport": {
-      "prefix": "vpositionvp",
-      "body": [
-          "const position = ${el}.getBoundingClientRect()"
-      ],
-      "description": "Vanilla JS position equivalent"
-  },
-
-  "Prepend": {
-      "prefix": "vprepend",
-      "body": [
-          "${parent}.insertBefore(${el}, ${parent}.firstChild)"
-      ],
-      "description": "Vanilla JS prepend equivalent"
-  },
-
-  "Prev": {
-      "prefix": "vprev",
-      "body": [
-          "${el}.previousElementSibling"
-      ],
-      "description": "Vanilla JS prev equivalent"
-  },
-
-  "Remove": {
-      "prefix": "vremove",
-      "body": [
-          "${el}.parentNode.removeChild(${el})"
-      ],
-      "description": "Vanilla JS remove equivalent"
-  },
-
-  "RemoveClass": {
-      "prefix": "vremoveClass",
-      "body": [
-          "if (${el}.classList) {",
-          "   ${el}.classList.remove(className)",
-          "}"
-      ],
-      "description": "Vanilla JS removeClass equivalent"
-  },
-
-  "Replace": {
-      "prefix": "vreplace",
-      "body": [
-          "${el}.outerHTML = ${string}"
-      ],
-      "description": "Vanilla JS replaceWith equivalent"
-  },
-
-  "Set Attributes": {
-      "prefix": "vsetAttr",
-      "body": [
-          "${el}.setAttribute(${attribute}, ${val})"
-      ],
-      "description": "Vanilla JS attr equivalent"
-  },
-
-  "Set Html": {
-      "prefix": "vsetHtml",
-      "body": [
-          "${el}.innerHTML = ${string}"
-      ],
-      "description": "Vanilla JS html equivalent"
-  },
-
-  "Set Style": {
-      "prefix": "vsetStyle",
-      "body": [
-          "${el}.style.${rulename} = ${val}"
-      ],
-      "description": "Vanilla JS css equivalent"
-  },
-
-  "Siblings": {
-      "prefix": "vsiblings",
-      "body": [
-          "Array.prototype.filter.call(${el}.parentNode.children, child => child !== ${el})"
-      ],
-      "description": "Vanilla JS css equivalent"
-  },
-
-  "Toggle Class": {
-      "prefix": "vtoggleClass",
-      "body": [
-          "if (${el}.classList) {",
-          "   ${el}.classList.toggle(${className})",
-          "}"
-      ],
-      "description": "Vanilla JS toggleClass equivalent"
-  },
-
-  /*
-      EVENTS
-  */
-
-  "Off": {
-      "prefix": "voff",
-      "body": [
-          "${el}.removeEventListener(${eventName}, ${eventHandler})"
-      ],
-      "description": "Vanilla JS off equivalent"
-  },
-
-  "On": {
-      "prefix": "von",
-      "body": [
-          "${el}.addEventListener(${eventName}, ${eventHandler})"
-      ],
-      "description": "Vanilla JS on equivalent"
-  },
-
-  "Ready": {
-      "prefix": "vready",
-      "body": [
-          "document.addEventListener('DOMContentLoaded', ${fn})"
-      ],
-      "description": "Vanilla JS ready equivalent"
-  },
-
-  "Trigger": {
-      "prefix": "vtrigger",
-      "body": [
-          "const event = document.createEvent('HTMLEvents')",
-          "event.initEvent(${eventType}, true, false)",
-          "${el}.dispatchEvent(event)"
-      ],
-      "description": "Vanilla JS trigger equivalent"
-  },
-
-  /*
-      UTILS
-  */
-  "Bind": {
-      "prefix": "vbind",
-      "body": [
-          "${fn}.bind(${context})"
-      ],
-      "description": "Vanilla JS proxy equivalent"
-  },
-
-  "In Array": {
-      "prefix": "vinArray",
-      "body": [
-          "if (${array}.indexOf(${item}) !== -1) {",
-          "   $0",
-          "}"
-      ],
-      "description": "Vanilla JS inArray equivalent"
-  },
-
-  "Is Array": {
-      "prefix": "visArray",
-      "body": [
-          "Array.isArray(${arr})"
-      ],
-      "description": "Vanilla JS isArray equivalent"
-  },
-
-  "Map": {
-      "prefix": "vmap",
-      "body": [
-          "${array}.map(${val} => $0}"
-      ],
-      "description": "Vanilla JS map equivalent"
-  },
-
-  "Now": {
-      "prefix": "vnow",
-      "body": [
-          "Date.now()"
-      ],
-      "description": "Vanilla JS now equivalent"
-  },
-
-  "Parse Html": {
-      "prefix": "vparseHtml",
-      "body": [
-          "const parseHTML = str => {",
-              "const tmp = document.implementation.createHTMLDocument()",
-              "tmp.body.innerHTML = str",
-              "return tmp.body.children",
+    "FadeIn": {
+        "prefix": "vfadeIn",
+        "body": [
+            "const fadeIn = el = {",
+            "   el.style.opacity = 0",
+            "   let last = +new Date()",
+            "   const tick = () => {",
+            "       el.style.opacity = +el.style.opacity + (new Date() - last) / 400",
+            "       last = +new Date()",
+            "       if (+el.style.opacity < 1) {",
+            "           (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16)",
+            "       }",
+            "   }",
+            "   tick()",
             "}",
-            "parseHTML(${htmlString})"
-      ],
-      "description": "Vanilla JS parseHTML equivalent"
-  },
+            "fadeIn(${el})"
+        ],
+        "description": "Display the matched elements by fading them using opacity"
+    },
 
-  "Parse Json": {
-      "prefix": "vparseJson",
-      "body": [
-          "JSON.parse(${string})"
-      ],
-      "description": "Vanilla JS parseJSON equivalent"
-  },
+    "Hide": {
+        "prefix": "vhide",
+        "body": [
+            "${el}.style.display = 'none'"
+        ],
+        "description": "Hide the matched elements"
+    },
 
-  "Trim": {
-      "prefix": "vtrim",
-      "body": [
-          "${string}.trim()"
-      ],
-      "description": "Vanilla JS trim equivalent"
-  },
+    "Show": {
+        "prefix": "vshow",
+        "body": [
+            "${el}.style.display = ''"
+        ],
+        "description": "Show the matched elements"
+    },
 
-  "Type": {
-      "prefix": "vtype",
-      "body": [
-          "Object.prototype.toString.call(${obj}).replace(/^\\[object (.+)\\]$/, '$1').toLowerCase()"
-      ],
-      "description": "Vanilla JS type equivalent"
-  }
+    /*
+        ELEMENTS
+    */
+
+    "AddClass": {
+        "prefix": "vaddClass",
+        "body": [
+            "if (${el}.classList) {",
+            "   ${el}.classList.add(${className})",
+            "}"
+        ],
+        "description": "Adds the specified class(es) to each of the set of matched elements"
+    },
+
+    "After": {
+        "prefix": "vafter",
+        "body": [
+            "${el}.insertAdjacentHTML('afterend', ${htmlString})"
+        ],
+        "description": "Insert content, specified by the parameter, after each element in the set of matched elements."
+    },
+
+    "Append": {
+        "prefix": "vappend",
+        "body": [
+            "${parent}.appendChild(${el})"
+        ],
+        "description": "Insert content, specified by the parameter, to the end of each element in the set of matched elements."
+    },
+
+    "Before": {
+        "prefix": "vbefore",
+        "body": [
+            "${el}.insertAdjacentHTML('beforebegin', ${htmlString})"
+        ],
+        "description": "Insert content, specified by the parameter, before each element in the set of matched elements."
+    },
+
+    "Children": {
+        "prefix": "vchildren",
+        "body": [
+            "${el}.children"
+        ],
+        "description": "Get the children of each element in the set of matched elements, optionally filtered by a selector."
+    },
+
+    "Clone": {
+        "prefix": "vclone",
+        "body": [
+            "${el}.cloneNode(true)"
+        ],
+        "description": "Create a deep copy of the set of matched elements."
+    },
+
+    "Contains": {
+        "prefix": "vcontains",
+        "body": [
+            "if (${el} !== ${child} && ${el}.contains(${child})) {",
+            "   $0",
+            "}"
+        ],
+        "description": "Check to see if a DOM element is a descendant of another DOM element."
+    },
+
+    "ContainsSelector": {
+        "prefix": "vcontainsSelector",
+        "body": [
+            "if (${el}.querySelector(${selector}) !== null) {",
+            "   $0",
+            "}"
+        ],
+        "description": "Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element."
+    },
+
+    "Each": {
+        "prefix": "veach",
+        "body": [
+            "const ${elements} = document.querySelectorAll(${selector})",
+            "${elements}.forEach(${element} => {",
+            "   $0",
+            "}"
+        ],
+        "description": "Iterate over a jQuery object, executing a function for each matched element."
+    },
+
+    "Empty": {
+        "prefix": "vempty",
+        "body": [
+            "${el}.innerHTML = ''"
+        ],
+        "description": "Remove all child nodes of the set of matched elements from the DOM."
+    },
+
+    "Filter": {
+        "prefix": "vfilter",
+        "body": [
+            "Array.prototype.filter.call(document.querySelectorAll(${selector}), ${filterFn})"
+        ],
+        "description": "Reduce the set of matched elements to those that match the selector or pass the function's test."
+    },
+
+    "Find Children": {
+        "prefix": "vfilter",
+        "body": [
+            "${el}.querySelectorAll(${selector})"
+        ],
+        "description": "Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element."
+    },
+
+    "Find Elements": {
+        "prefix": "vfilter",
+        "body": [
+            "document.querySelectorAll(${selector})"
+        ],
+        "description": "Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element."
+    },
+
+    "GetAttributes": {
+        "prefix": "vgetAttr",
+        "body": [
+            "${el}.getAttribute(${attribute})"
+        ],
+        "description": "Get the value of an attribute for the first element in the set of matched elements."
+    },
+
+    "Html": {
+        "prefix": "vgetHtml",
+        "body": [
+            "${el}.innerHTML"
+        ],
+        "description": "Get the HTML contents of the first element in the set of matched elements."
+    },
+
+    "Outer Html": {
+        "prefix": "vouterHtml",
+        "body": [
+            "${el}.outerHTML"
+        ],
+        "description": "Get the outer HTML contents of the first element in the set of matched elements."
+    },
+
+    "Css": {
+        "prefix": "vouterHtml",
+        "body": [
+            "getComputedStyle(${el})[${ruleName}]"
+        ],
+        "description": "Get the computed style properties for the first element in the set of matched elements."
+    },
+
+    "Text": {
+        "prefix": "vouterHtml",
+        "body": [
+            "${el}.textContent"
+        ],
+        "description": "Get the combined text contents of each element in the set of matched elements, including their descendants."
+    },
+
+    "HasClass": {
+        "prefix": "vhasClass",
+        "body": [
+            "${el}.classList.contains(${class})"
+        ],
+        "description": "Determine whether any of the matched elements are assigned the given class."
+    },
+
+    "Is": {
+        "prefix": "vis",
+        "body": [
+            "if (el === otherEl) {",
+            "   $0",
+            "}"
+        ],
+        "description": "Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments."
+    },
+
+    "Is Selector": {
+        "prefix": "visSelector",
+        "body": [
+            "const matches = (el, selector) {",
+            "   return (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector).call(el, selector)",
+            "}",
+            "if (matches(${el}, ${selector})) {",
+            "   $0",
+            "}"
+        ],
+        "description": "Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments."
+    },
+
+    "Next": {
+        "prefix": "vnext",
+        "body": [
+            "${el}.nextElementSibling"
+        ],
+        "description": "Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector."
+    },
+
+    "Offset": {
+        "prefix": "vnext",
+        "body": [
+            "const rect = ${el}.getBoundingClientRect()",
+            "const offset = {",
+            "   top: rect.top + document.body.scrollTop,",
+            "   left: rect.left + document.body.scrollLeft",
+            "}"
+        ],
+        "description": "Get the current coordinates of the first element in the set of matched elements, relative to the document."
+    },
+
+    "Offset Parent": {
+        "prefix": "voffsetParent",
+        "body": [
+            "if (${el}.offsetParent || ${el}) {",
+            "   $0",
+            "}"
+        ],
+        "description": "Get the closest ancestor element that is positioned."
+    },
+
+    "OuterHeight": {
+        "prefix": "vouterHeight",
+        "body": [
+            "${el}.offsetHeight"
+        ],
+        "description": "Get the current computed outer height (including padding, border, and optionally margin) for the first element in the set of matched elements."
+    },
+
+    "OuterHeight With Margin": {
+        "prefix": "vouterHeightMargin",
+        "body": [
+            "const outerHeight = el => {",
+            "   let height = el.offsetHeight",
+            "   const style = getComputedStyle(el)",
+            "   height += parseInt(style.marginTop) + parseInt(style.marginBottom)",
+            "   return height",
+            "}",
+            "outerHeight(${el})"
+        ],
+        "description": "Get the current computed outer height (including padding, border, and optionally margin) for the first element in the set of matched elements."
+    },
+
+    "OuterWidth": {
+        "prefix": "vouterWidth",
+        "body": [
+            "${el}.offsetWidth"
+        ],
+        "description": "Get the current computed outer width (including padding, border, and optionally margin) for the first element in the set of matched elements."
+    },
+
+    "OuterWidth With Margin": {
+        "prefix": "vouterWidthMargin",
+        "body": [
+            "const outerWidth = el => {",
+            "   let width = el.offsetWidth",
+            "   const style = getComputedStyle(el)",
+            "   width += parseInt(style.marginLeft) + parseInt(style.marginRight)",
+            "   return width",
+            "}",
+            "outerWidth(${el})"
+        ],
+        "description": "Get the current computed outer width (including padding, border, and optionally margin) for the first element in the set of matched elements."
+    },
+
+    "Parent": {
+        "prefix": "vparent",
+        "body": [
+            "${el}.parentNode"
+        ],
+        "description": "Get the parent of each element in the current set of matched elements, optionally filtered by a selector."
+    },
+
+    "Position": {
+        "prefix": "vposition",
+        "body": [
+            "const position = { left: ${el}.offsetLeft, top: ${el}.offsetTop }"
+        ],
+        "description": "Get the current coordinates of the first element in the set of matched elements, relative to the offset parent."
+    },
+
+    "Position relative to viewport": {
+        "prefix": "vpositionvp",
+        "body": [
+            "const position = ${el}.getBoundingClientRect()"
+        ],
+        "description": "Get the current coordinates of the first element in the set of matched elements, relative to the offset parent."
+    },
+
+    "Prepend": {
+        "prefix": "vprepend",
+        "body": [
+            "${parent}.insertBefore(${el}, ${parent}.firstChild)"
+        ],
+        "description": "Insert content, specified by the parameter, to the beginning of each element in the set of matched elements."
+    },
+
+    "Prev": {
+        "prefix": "vprev",
+        "body": [
+            "${el}.previousElementSibling"
+        ],
+        "description": "Get the immediately preceding sibling of each element in the set of matched elements. If a selector is provided, it retrieves the previous sibling only if it matches that selector."
+    },
+
+    "Remove": {
+        "prefix": "vremove",
+        "body": [
+            "${el}.parentNode.removeChild(${el})"
+        ],
+        "description": "Remove the set of matched elements from the DOM."
+    },
+
+    "RemoveClass": {
+        "prefix": "vremoveClass",
+        "body": [
+            "if (${el}.classList) {",
+            "   ${el}.classList.remove(className)",
+            "}"
+        ],
+        "description": "Remove a single class, multiple classes, or all classes from each element in the set of matched elements."
+    },
+
+    "Replace": {
+        "prefix": "vreplace",
+        "body": [
+            "${el}.outerHTML = ${string}"
+        ],
+        "description": "Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed."
+    },
+
+    "Set Attributes": {
+        "prefix": "vsetAttr",
+        "body": [
+            "${el}.setAttribute(${attribute}, ${val})"
+        ],
+        "description": "Set one or more attributes for the set of matched elements."
+    },
+
+    "Set Html": {
+        "prefix": "vsetHtml",
+        "body": [
+            "${el}.innerHTML = ${string}"
+        ],
+        "description": "Set the HTML contents of each element in the set of matched elements."
+    },
+
+    "Set Style": {
+        "prefix": "vsetStyle",
+        "body": [
+            "${el}.style.${rulename} = ${val}"
+        ],
+        "description": "Set one or more CSS properties for the set of matched elements."
+    },
+
+    "Siblings": {
+        "prefix": "vsiblings",
+        "body": [
+            "Array.prototype.filter.call(${el}.parentNode.children, child => child !== ${el})"
+        ],
+        "description": "Get the siblings of each element in the set of matched elements, optionally filtered by a selector."
+    },
+
+    "Toggle Class": {
+        "prefix": "vtoggleClass",
+        "body": [
+            "if (${el}.classList) {",
+            "   ${el}.classList.toggle(${className})",
+            "}"
+        ],
+        "description": "Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the state argument."
+    },
+
+    /*
+        EVENTS
+    */
+
+    "Off": {
+        "prefix": "voff",
+        "body": [
+            "${el}.removeEventListener(${eventName}, ${eventHandler})"
+        ],
+        "description": "Remove an event handler."
+    },
+
+    "On": {
+        "prefix": "von",
+        "body": [
+            "${el}.addEventListener(${eventName}, ${eventHandler})"
+        ],
+        "description": "Bind an event handler."
+    },
+
+    "Ready": {
+        "prefix": "vready",
+        "body": [
+            "document.addEventListener('DOMContentLoaded', ${fn})"
+        ],
+        "description": "Specify a function to execute when the DOM is fully loaded."
+    },
+
+    "Trigger": {
+        "prefix": "vtrigger",
+        "body": [
+            "const event = document.createEvent('HTMLEvents')",
+            "event.initEvent(${eventType}, true, false)",
+            "${el}.dispatchEvent(event)"
+        ],
+        "description": "Execute all handlers and behaviors attached to the matched elements for the given event type."
+    },
+
+    /*
+        UTILS
+    */
+
+    "Bind": {
+        "prefix": "vbind",
+        "body": [
+            "${fn}.bind(${context})"
+        ],
+        "description": "Takes a function and returns a new one that will always have a particular context."
+    },
+
+    "In Array": {
+        "prefix": "vinArray",
+        "body": [
+            "if (${array}.indexOf(${item}) !== -1) {",
+            "   $0",
+            "}"
+        ],
+        "description": "Search for a specified value within an array and return its index (or -1 if not found)."
+    },
+
+    "Is Array": {
+        "prefix": "visArray",
+        "body": [
+            "Array.isArray(${arr})"
+        ],
+        "description": "Determine whether the argument is an array."
+    },
+
+    "Map": {
+        "prefix": "vmap",
+        "body": [
+            "${array}.map(${val} => $0}"
+        ],
+        "description": "Translate all items in an array or object to new array of items."
+    },
+
+    "Now": {
+        "prefix": "vnow",
+        "body": [
+            "Date.now()"
+        ],
+        "description": "Return a number representing the current time."
+    },
+
+    "Parse Html": {
+        "prefix": "vparseHtml",
+        "body": [
+            "const parseHTML = str => {",
+                "const tmp = document.implementation.createHTMLDocument()",
+                "tmp.body.innerHTML = str",
+                "return tmp.body.children",
+              "}",
+              "parseHTML(${htmlString})"
+        ],
+        "description": "Vanilla JS parseHTML equivalent"
+    },
+
+    "Parse Json": {
+        "prefix": "vparseJson",
+        "body": [
+            "JSON.parse(${string})"
+        ],
+        "description": "Parses a string into an array of DOM nodes."
+    },
+
+    "Trim": {
+        "prefix": "vtrim",
+        "body": [
+            "${string}.trim()"
+        ],
+        "description": "Remove the whitespace from the beginning and end of a string."
+    },
+
+    "Type": {
+        "prefix": "vtype",
+        "body": [
+            "Object.prototype.toString.call(${obj}).replace(/^\\[object (.+)\\]$/, '$1').toLowerCase()"
+        ],
+        "description": "Determine the internal JavaScript [[Class]] of an object."
+    }
 
 }
