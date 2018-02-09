@@ -1,0 +1,25 @@
+{
+    "name": "nojquery-snippets",
+    "displayName": "noJquery Snippets",
+    "description": "A bunch of snippets to easily migrate to ES6 Vanilla Js from jQuery",
+    "version": "0.0.1",
+    "publisher": "Nkzq",
+    "engines": {
+        "vscode": "^1.20.0"
+    },
+    "categories": [
+        "Snippets"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "javascript",
+                "path": "./snippets/javascript.json"
+            },
+            {
+                "language": "javascriptreact",
+                "path": "./snippets/javascriptreact.json"
+            }
+        ]
+    }
+}
