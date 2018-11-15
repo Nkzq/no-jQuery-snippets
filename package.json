@@ -21,5 +21,9 @@
                 "path": "./snippets/javascriptreact.json"
             }
         ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Nkzq/no-jQuery-snippets"
     }
 }
