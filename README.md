@@ -4,7 +4,7 @@ A bunch of snippets to easily migrate to ES6 Vanilla Js from jQuery.
 
 The snippets are accessible by typing "v" followed up by the jQuery function you need.
 
-![Image of Snippets](https://github.com/Nkzq/no-jQuery-snippets/blob/master/images/snippets.png)
+![Image of Snippets](https://github.com/Nkzq/no-jQuery-snippets/blob/master/images/snippets.png?raw=true)
 
 ## Snippets
 
