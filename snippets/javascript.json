@@ -23,7 +23,7 @@
     "FadeIn": {
         "prefix": "vfadeIn",
         "body": [
-            "const fadeIn = el = {",
+            "const fadeIn = el => {",
             "   el.style.opacity = 0",
             "   let last = +new Date()",
             "   const tick = () => {",
